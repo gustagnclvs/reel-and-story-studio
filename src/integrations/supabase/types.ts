@@ -14,16 +14,313 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      accounts: {
+        Row: {
+          created_at: string
+          id: string
+          last_error: string | null
+          password_enc: string
+          password_last2: string
+          profile_photo_url: string | null
+          proxy: string | null
+          sessionid_enc: string | null
+          status: string
+          steps_state: Json
+          sticker_h: number
+          sticker_text: string
+          sticker_w: number
+          sticker_x: number
+          sticker_y: number
+          story_link: string | null
+          totp_secret_enc: string | null
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_error?: string | null
+          password_enc: string
+          password_last2?: string
+          profile_photo_url?: string | null
+          proxy?: string | null
+          sessionid_enc?: string | null
+          status?: string
+          steps_state?: Json
+          sticker_h?: number
+          sticker_text?: string
+          sticker_w?: number
+          sticker_x?: number
+          sticker_y?: number
+          story_link?: string | null
+          totp_secret_enc?: string | null
+          updated_at?: string
+          username: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_error?: string | null
+          password_enc?: string
+          password_last2?: string
+          profile_photo_url?: string | null
+          proxy?: string | null
+          sessionid_enc?: string | null
+          status?: string
+          steps_state?: Json
+          sticker_h?: number
+          sticker_text?: string
+          sticker_w?: number
+          sticker_x?: number
+          sticker_y?: number
+          story_link?: string | null
+          totp_secret_enc?: string | null
+          updated_at?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      batches: {
+        Row: {
+          config: Json
+          continue_on_step_error: boolean
+          created_at: string
+          dry_run: boolean
+          id: string
+          last_job_finished_at: string | null
+          pause_s: number
+          status: string
+        }
+        Insert: {
+          config?: Json
+          continue_on_step_error?: boolean
+          created_at?: string
+          dry_run?: boolean
+          id?: string
+          last_job_finished_at?: string | null
+          pause_s?: number
+          status?: string
+        }
+        Update: {
+          config?: Json
+          continue_on_step_error?: boolean
+          created_at?: string
+          dry_run?: boolean
+          id?: string
+          last_job_finished_at?: string | null
+          pause_s?: number
+          status?: string
+        }
+        Relationships: []
+      }
+      jobs: {
+        Row: {
+          account_id: string
+          batch_id: string | null
+          created_at: string
+          finished_at: string | null
+          id: string
+          log: Json
+          params: Json
+          started_at: string | null
+          status: string
+          step_atual: string | null
+          steps: Json
+          video_id: string | null
+        }
+        Insert: {
+          account_id: string
+          batch_id?: string | null
+          created_at?: string
+          finished_at?: string | null
+          id?: string
+          log?: Json
+          params?: Json
+          started_at?: string | null
+          status?: string
+          step_atual?: string | null
+          steps?: Json
+          video_id?: string | null
+        }
+        Update: {
+          account_id?: string
+          batch_id?: string | null
+          created_at?: string
+          finished_at?: string | null
+          id?: string
+          log?: Json
+          params?: Json
+          started_at?: string | null
+          status?: string
+          step_atual?: string | null
+          steps?: Json
+          video_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "jobs_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "jobs_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_safe"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "jobs_batch_id_fkey"
+            columns: ["batch_id"]
+            isOneToOne: false
+            referencedRelation: "batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "jobs_video_id_fkey"
+            columns: ["video_id"]
+            isOneToOne: false
+            referencedRelation: "videos"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      videos: {
+        Row: {
+          caption: string | null
+          created_at: string
+          duration_s: number | null
+          hashtags: string[]
+          id: string
+          last_error: string | null
+          name: string
+          scene_label: string | null
+          status: string
+          storage_path: string
+        }
+        Insert: {
+          caption?: string | null
+          created_at?: string
+          duration_s?: number | null
+          hashtags?: string[]
+          id?: string
+          last_error?: string | null
+          name?: string
+          scene_label?: string | null
+          status?: string
+          storage_path: string
+        }
+        Update: {
+          caption?: string | null
+          created_at?: string
+          duration_s?: number | null
+          hashtags?: string[]
+          id?: string
+          last_error?: string | null
+          name?: string
+          scene_label?: string | null
+          status?: string
+          storage_path?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
-      [_ in never]: never
+      accounts_safe: {
+        Row: {
+          created_at: string | null
+          has_session: boolean | null
+          has_totp: boolean | null
+          id: string | null
+          last_error: string | null
+          password_last2: string | null
+          profile_photo_url: string | null
+          proxy: string | null
+          status: string | null
+          steps_state: Json | null
+          sticker_h: number | null
+          sticker_text: string | null
+          sticker_w: number | null
+          sticker_x: number | null
+          sticker_y: number | null
+          story_link: string | null
+          updated_at: string | null
+          username: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          has_session?: never
+          has_totp?: never
+          id?: string | null
+          last_error?: string | null
+          password_last2?: string | null
+          profile_photo_url?: string | null
+          proxy?: string | null
+          status?: string | null
+          steps_state?: Json | null
+          sticker_h?: number | null
+          sticker_text?: string | null
+          sticker_w?: number | null
+          sticker_x?: number | null
+          sticker_y?: number | null
+          story_link?: string | null
+          updated_at?: string | null
+          username?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          has_session?: never
+          has_totp?: never
+          id?: string | null
+          last_error?: string | null
+          password_last2?: string | null
+          profile_photo_url?: string | null
+          proxy?: string | null
+          status?: string | null
+          steps_state?: Json | null
+          sticker_h?: number | null
+          sticker_text?: string | null
+          sticker_w?: number | null
+          sticker_x?: number | null
+          sticker_y?: number | null
+          story_link?: string | null
+          updated_at?: string | null
+          username?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +447,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin"],
+    },
   },
 } as const
