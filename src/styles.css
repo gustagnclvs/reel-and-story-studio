@@ -116,6 +116,11 @@
     color-scheme: dark;
   }
 
+  input[type='checkbox'],
+  input[type='radio'] {
+    accent-color: var(--color-primary);
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);

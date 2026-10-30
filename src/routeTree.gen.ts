@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ContasRouteImport } from './routes/contas'
 import { Route as ImportarRouteImport } from './routes/importar'
+import { Route as LogRouteImport } from './routes/log'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as MidiaRouteImport } from './routes/midia'
 import { Route as ApiPublicWorkerRpcRouteImport } from './routes/api/public/worker/rpc'
 
 const IndexRoute = IndexRouteImport.update({
@@ -30,9 +32,19 @@ const ImportarRoute = ImportarRouteImport.update({
   path: '/importar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LogRoute = LogRouteImport.update({
+  id: '/log',
+  path: '/log',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MidiaRoute = MidiaRouteImport.update({
+  id: '/midia',
+  path: '/midia',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicWorkerRpcRoute = ApiPublicWorkerRpcRouteImport.update({
@@ -45,14 +57,18 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/contas': typeof ContasRoute
   '/importar': typeof ImportarRoute
+  '/log': typeof LogRoute
   '/login': typeof LoginRoute
+  '/midia': typeof MidiaRoute
   '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/contas': typeof ContasRoute
   '/importar': typeof ImportarRoute
+  '/log': typeof LogRoute
   '/login': typeof LoginRoute
+  '/midia': typeof MidiaRoute
   '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
 }
 export interface FileRoutesById {
@@ -60,20 +76,38 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/contas': typeof ContasRoute
   '/importar': typeof ImportarRoute
+  '/log': typeof LogRoute
   '/login': typeof LoginRoute
+  '/midia': typeof MidiaRoute
   '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/contas' | '/importar' | '/login' | '/api/public/worker/rpc'
+  fullPaths:
+    | '/'
+    | '/contas'
+    | '/importar'
+    | '/log'
+    | '/login'
+    | '/midia'
+    | '/api/public/worker/rpc'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/contas' | '/importar' | '/login' | '/api/public/worker/rpc'
+  to:
+    | '/'
+    | '/contas'
+    | '/importar'
+    | '/log'
+    | '/login'
+    | '/midia'
+    | '/api/public/worker/rpc'
   id:
     | '__root__'
     | '/'
     | '/contas'
     | '/importar'
+    | '/log'
     | '/login'
+    | '/midia'
     | '/api/public/worker/rpc'
   fileRoutesById: FileRoutesById
 }
@@ -81,7 +115,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ContasRoute: typeof ContasRoute
   ImportarRoute: typeof ImportarRoute
+  LogRoute: typeof LogRoute
   LoginRoute: typeof LoginRoute
+  MidiaRoute: typeof MidiaRoute
   ApiPublicWorkerRpcRoute: typeof ApiPublicWorkerRpcRoute
 }
 
@@ -108,11 +144,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ImportarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/log': {
+      id: '/log'
+      path: '/log'
+      fullPath: '/log'
+      preLoaderRoute: typeof LogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/midia': {
+      id: '/midia'
+      path: '/midia'
+      fullPath: '/midia'
+      preLoaderRoute: typeof MidiaRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/worker/rpc': {
@@ -129,7 +179,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ContasRoute: ContasRoute,
   ImportarRoute: ImportarRoute,
+  LogRoute: LogRoute,
   LoginRoute: LoginRoute,
+  MidiaRoute: MidiaRoute,
   ApiPublicWorkerRpcRoute: ApiPublicWorkerRpcRoute,
 }
 export const routeTree = rootRouteImport
