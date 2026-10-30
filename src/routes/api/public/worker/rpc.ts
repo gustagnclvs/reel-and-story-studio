@@ -28,7 +28,7 @@ export const Route = createFileRoute("/api/public/worker/rpc")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const token = process.env.WORKER_TOKEN;
+        const token = process.env['WORKER_TOKEN'];
         const auth = request.headers.get("authorization") ?? "";
         if (!token || !auth.startsWith("Bearer ") || !safeEqual(auth.slice(7), token)) {
           return json({ error: "unauthorized" }, 401);

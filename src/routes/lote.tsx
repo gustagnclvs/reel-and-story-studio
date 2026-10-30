@@ -10,7 +10,7 @@ import {
 } from "@/lib/ig";
 
 export const Route = createFileRoute("/lote")({
-  validateSearch: (s: Record<string, unknown>) => ({ ids: typeof s.ids === "string" ? s.ids : "" }),
+  validateSearch: (s: Record<string, unknown>) => ({ ids: typeof s["ids"] === "string" ? (s["ids"] as string) : "" }),
   head: () => ({
     meta: [
       { title: "Lote — Fila IG" },
@@ -51,17 +51,17 @@ function Lote() {
     apply(n);
   };
 
-  async function enfileirar() {
-    if (!accSel.size) return toast.error("Escolha ao menos uma conta");
-    if (steps.has("postar_reel") && !vidSel.size) return toast.error("Escolha ao menos um vídeo para o Reel");
+  async function enfileirar(): Promise<void> {
+    if (!accSel.size) { toast.error("Escolha ao menos uma conta"); return; }
+    if (steps.has("postar_reel") && !vidSel.size) { toast.error("Escolha ao menos um vídeo para o Reel"); return; }
     if (steps.has("postar_story")) {
-      if (!link) return toast.error("Informe o link do story");
+      if (!link) { toast.error("Informe o link do story"); return; }
       const e = validateUrl(link);
-      if (e) return toast.error(e);
-      if (!sticker.trim()) return toast.error("Texto do sticker vazio");
+      if (e) { toast.error(e); return; }
+      if (!sticker.trim()) { toast.error("Texto do sticker vazio"); return; }
     }
-    if (steps.has("foto_perfil") && photoMode === "mesma" && !photoFile) return toast.error("Envie a foto do lote");
-    if (steps.has("postar_story") && storyMedia === "video" && !vidSel.size) return toast.error("Story em vídeo precisa de um vídeo selecionado");
+    if (steps.has("foto_perfil") && photoMode === "mesma" && !photoFile) { toast.error("Envie a foto do lote"); return; }
+    if (steps.has("postar_story") && storyMedia === "video" && !vidSel.size) { toast.error("Story em vídeo precisa de um vídeo selecionado"); return; }
     setBusy(true);
     try {
       const photoPath = photoMode === "mesma" && photoFile ? `storage:fotos/${await uploadFile("fotos", photoFile)}` : null;

@@ -91,7 +91,7 @@ export function parseAccounts(text: string): ParsedRow[] {
     .map((l) => l.trimEnd())
     .filter((l) => l.trim() !== "");
   if (!lines.length) return [];
-  const head = lines[0];
+  const head = lines[0] ?? "";
   const delim = (head.match(/;/g)?.length ?? 0) > (head.match(/,/g)?.length ?? 0) ? ";" : ",";
   let cols: (keyof ImportRow)[] = COLS;
   let start = 0;

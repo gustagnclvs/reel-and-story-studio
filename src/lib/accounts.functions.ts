@@ -17,7 +17,7 @@ export const importAccounts = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((d: unknown) => z.object({ rows: z.array(rowSchema).min(1).max(500) }).parse(d))
   .handler(async ({ data, context }) => {
-    const key = process.env.IG_ENC_KEY;
+    const key = process.env['IG_ENC_KEY'];
     if (!key) throw new Error("IG_ENC_KEY não configurada no painel.");
     const { fernetEncrypt } = await import("./fernet.server");
     const { supabase } = context;

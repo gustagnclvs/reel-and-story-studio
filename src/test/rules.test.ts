@@ -4,21 +4,21 @@ import { fernetDecrypt, fernetEncrypt } from "@/lib/fernet.server";
 
 describe("importação", () => {
   it("aceita ponto e vírgula, tira @ do username e mantém a chave base32", () => {
-    const [r] = parseAccounts("username;password;totp_secret\n@Fulano;abc123;jbsw y3dp ehpk 3pxp");
-    expect(r.row.username).toBe("fulano");
+    const r = parseAccounts("username;password;totp_secret\n@Fulano;abc123;jbsw y3dp ehpk 3pxp")[0]!;
+    expect(r.row.username).toBe("fulano")[0]!;
     expect(r.row.totp_secret).toBe("JBSWY3DPEHPK3PXP");
     expect(r.errors).toEqual([]);
   });
   it("aceita vírgula sem cabeçalho", () => {
-    const [r] = parseAccounts("fulano,senha,JBSWY3DPEHPK3PXP,,,https://x.com/a,Oi 😉");
-    expect(r.row.story_link).toBe("https://x.com/a");
-    expect(r.row.sticker_text).toBe("Oi 😉");
+    const r = parseAccounts("fulano,senha,JBSWY3DPEHPK3PXP,,,https://x.com/a,Oi 😉")[0]!;
+    expect(r.row.story_link).toBe("https://x.com/a")[0]!;
+    expect(r.row.sticker_text).toBe("Oi 😉")[0]!;
   });
   it("recusa código de 6 dígitos no lugar da chave", () => {
     expect(validateTotp("123456")).toMatch(/6 dígitos/);
   });
   it("recusa sticker acima de 40 caracteres", () => {
-    const [r] = parseAccounts(`u,p,,,,,${"x".repeat(41)}`);
+    const r = parseAccounts(`u,p,,,,,${"x".repeat(41)}`)[0]!;
     expect(r.errors.join()).toMatch(/40/);
   });
 });

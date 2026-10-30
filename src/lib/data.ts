@@ -152,7 +152,7 @@ export async function createBatch(b: BatchInput) {
 export async function uploadFile(bucket: "videos" | "fotos", file: File) {
   const ext = file.name.split(".").pop()?.toLowerCase() || "bin";
   const path = `${crypto.randomUUID()}.${ext}`;
-  const { error } = await supabase.storage.from(bucket).upload(path, file, { contentType: file.type || undefined });
+  const { error } = await supabase.storage.from(bucket).upload(path, file, file.type ? { contentType: file.type } : {});
   if (error) throw error;
   return path;
 }
