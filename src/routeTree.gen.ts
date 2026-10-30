@@ -10,12 +10,24 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContasRouteImport } from './routes/contas'
+import { Route as ImportarRouteImport } from './routes/importar'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as ApiPublicWorkerRpcRouteImport } from './routes/api/public/worker/rpc'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContasRoute = ContasRouteImport.update({
+  id: '/contas',
+  path: '/contas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImportarRoute = ImportarRouteImport.update({
+  id: '/importar',
+  path: '/importar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -31,30 +43,44 @@ const ApiPublicWorkerRpcRoute = ApiPublicWorkerRpcRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contas': typeof ContasRoute
+  '/importar': typeof ImportarRoute
   '/login': typeof LoginRoute
   '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contas': typeof ContasRoute
+  '/importar': typeof ImportarRoute
   '/login': typeof LoginRoute
   '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contas': typeof ContasRoute
+  '/importar': typeof ImportarRoute
   '/login': typeof LoginRoute
   '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/api/public/worker/rpc'
+  fullPaths: '/' | '/contas' | '/importar' | '/login' | '/api/public/worker/rpc'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/api/public/worker/rpc'
-  id: '__root__' | '/' | '/login' | '/api/public/worker/rpc'
+  to: '/' | '/contas' | '/importar' | '/login' | '/api/public/worker/rpc'
+  id:
+    | '__root__'
+    | '/'
+    | '/contas'
+    | '/importar'
+    | '/login'
+    | '/api/public/worker/rpc'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContasRoute: typeof ContasRoute
+  ImportarRoute: typeof ImportarRoute
   LoginRoute: typeof LoginRoute
   ApiPublicWorkerRpcRoute: typeof ApiPublicWorkerRpcRoute
 }
@@ -66,6 +92,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contas': {
+      id: '/contas'
+      path: '/contas'
+      fullPath: '/contas'
+      preLoaderRoute: typeof ContasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/importar': {
+      id: '/importar'
+      path: '/importar'
+      fullPath: '/importar'
+      preLoaderRoute: typeof ImportarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -87,6 +127,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContasRoute: ContasRoute,
+  ImportarRoute: ImportarRoute,
   LoginRoute: LoginRoute,
   ApiPublicWorkerRpcRoute: ApiPublicWorkerRpcRoute,
 }
