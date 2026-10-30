@@ -9,27 +9,69 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as ApiPublicWorkerRpcRouteImport } from './routes/api/public/worker/rpc'
 
-export interface FileRoutesByFullPath {}
-export interface FileRoutesByTo {}
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicWorkerRpcRoute = ApiPublicWorkerRpcRouteImport.update({
+  id: '/api/public/worker/rpc',
+  path: '/api/public/worker/rpc',
+  getParentRoute: () => rootRouteImport,
+} as any)
+
+export interface FileRoutesByFullPath {
+  '/login': typeof LoginRoute
+  '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
+}
+export interface FileRoutesByTo {
+  '/login': typeof LoginRoute
+  '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
+}
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/login': typeof LoginRoute
+  '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: never
+  fullPaths: '/login' | '/api/public/worker/rpc'
   fileRoutesByTo: FileRoutesByTo
-  to: never
-  id: '__root__'
+  to: '/login' | '/api/public/worker/rpc'
+  id: '__root__' | '/login' | '/api/public/worker/rpc'
   fileRoutesById: FileRoutesById
 }
-export interface RootRouteChildren {}
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {}
+export interface RootRouteChildren {
+  LoginRoute: typeof LoginRoute
+  ApiPublicWorkerRpcRoute: typeof ApiPublicWorkerRpcRoute
 }
 
-const rootRouteChildren: RootRouteChildren = {}
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/worker/rpc': {
+      id: '/api/public/worker/rpc'
+      path: '/api/public/worker/rpc'
+      fullPath: '/api/public/worker/rpc'
+      preLoaderRoute: typeof ApiPublicWorkerRpcRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+  }
+}
+
+const rootRouteChildren: RootRouteChildren = {
+  LoginRoute: LoginRoute,
+  ApiPublicWorkerRpcRoute: ApiPublicWorkerRpcRoute,
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
