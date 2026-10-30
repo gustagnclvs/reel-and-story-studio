@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ContasRouteImport } from './routes/contas'
+import { Route as ImportarRouteImport } from './routes/importar'
+import { Route as LogRouteImport } from './routes/log'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as LoteRouteImport } from './routes/lote'
+import { Route as MidiaRouteImport } from './routes/midia'
+import { Route as ApiPublicWorkerRpcRouteImport } from './routes/api/public/worker/rpc'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContasRoute = ContasRouteImport.update({
+  id: '/contas',
+  path: '/contas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImportarRoute = ImportarRouteImport.update({
+  id: '/importar',
+  path: '/importar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LogRoute = LogRouteImport.update({
+  id: '/log',
+  path: '/log',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoteRoute = LoteRouteImport.update({
+  id: '/lote',
+  path: '/lote',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MidiaRoute = MidiaRouteImport.update({
+  id: '/midia',
+  path: '/midia',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicWorkerRpcRoute = ApiPublicWorkerRpcRouteImport.update({
+  id: '/api/public/worker/rpc',
+  path: '/api/public/worker/rpc',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/contas': typeof ContasRoute
+  '/importar': typeof ImportarRoute
+  '/log': typeof LogRoute
+  '/login': typeof LoginRoute
+  '/lote': typeof LoteRoute
+  '/midia': typeof MidiaRoute
+  '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/contas': typeof ContasRoute
+  '/importar': typeof ImportarRoute
+  '/log': typeof LogRoute
+  '/login': typeof LoginRoute
+  '/lote': typeof LoteRoute
+  '/midia': typeof MidiaRoute
+  '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/contas': typeof ContasRoute
+  '/importar': typeof ImportarRoute
+  '/log': typeof LogRoute
+  '/login': typeof LoginRoute
+  '/lote': typeof LoteRoute
+  '/midia': typeof MidiaRoute
+  '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/contas'
+    | '/importar'
+    | '/log'
+    | '/login'
+    | '/lote'
+    | '/midia'
+    | '/api/public/worker/rpc'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/contas'
+    | '/importar'
+    | '/log'
+    | '/login'
+    | '/lote'
+    | '/midia'
+    | '/api/public/worker/rpc'
+  id:
+    | '__root__'
+    | '/'
+    | '/contas'
+    | '/importar'
+    | '/log'
+    | '/login'
+    | '/lote'
+    | '/midia'
+    | '/api/public/worker/rpc'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ContasRoute: typeof ContasRoute
+  ImportarRoute: typeof ImportarRoute
+  LogRoute: typeof LogRoute
+  LoginRoute: typeof LoginRoute
+  LoteRoute: typeof LoteRoute
+  MidiaRoute: typeof MidiaRoute
+  ApiPublicWorkerRpcRoute: typeof ApiPublicWorkerRpcRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contas': {
+      id: '/contas'
+      path: '/contas'
+      fullPath: '/contas'
+      preLoaderRoute: typeof ContasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/importar': {
+      id: '/importar'
+      path: '/importar'
+      fullPath: '/importar'
+      preLoaderRoute: typeof ImportarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/log': {
+      id: '/log'
+      path: '/log'
+      fullPath: '/log'
+      preLoaderRoute: typeof LogRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lote': {
+      id: '/lote'
+      path: '/lote'
+      fullPath: '/lote'
+      preLoaderRoute: typeof LoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/midia': {
+      id: '/midia'
+      path: '/midia'
+      fullPath: '/midia'
+      preLoaderRoute: typeof MidiaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/worker/rpc': {
+      id: '/api/public/worker/rpc'
+      path: '/api/public/worker/rpc'
+      fullPath: '/api/public/worker/rpc'
+      preLoaderRoute: typeof ApiPublicWorkerRpcRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ContasRoute: ContasRoute,
+  ImportarRoute: ImportarRoute,
+  LogRoute: LogRoute,
+  LoginRoute: LoginRoute,
+  LoteRoute: LoteRoute,
+  MidiaRoute: MidiaRoute,
+  ApiPublicWorkerRpcRoute: ApiPublicWorkerRpcRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
