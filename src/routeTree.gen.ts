@@ -14,6 +14,7 @@ import { Route as ContasRouteImport } from './routes/contas'
 import { Route as ImportarRouteImport } from './routes/importar'
 import { Route as LogRouteImport } from './routes/log'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as LoteRouteImport } from './routes/lote'
 import { Route as MidiaRouteImport } from './routes/midia'
 import { Route as ApiPublicWorkerRpcRouteImport } from './routes/api/public/worker/rpc'
 
@@ -42,6 +43,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoteRoute = LoteRouteImport.update({
+  id: '/lote',
+  path: '/lote',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MidiaRoute = MidiaRouteImport.update({
   id: '/midia',
   path: '/midia',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/importar': typeof ImportarRoute
   '/log': typeof LogRoute
   '/login': typeof LoginRoute
+  '/lote': typeof LoteRoute
   '/midia': typeof MidiaRoute
   '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/importar': typeof ImportarRoute
   '/log': typeof LogRoute
   '/login': typeof LoginRoute
+  '/lote': typeof LoteRoute
   '/midia': typeof MidiaRoute
   '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/importar': typeof ImportarRoute
   '/log': typeof LogRoute
   '/login': typeof LoginRoute
+  '/lote': typeof LoteRoute
   '/midia': typeof MidiaRoute
   '/api/public/worker/rpc': typeof ApiPublicWorkerRpcRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/importar'
     | '/log'
     | '/login'
+    | '/lote'
     | '/midia'
     | '/api/public/worker/rpc'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/importar'
     | '/log'
     | '/login'
+    | '/lote'
     | '/midia'
     | '/api/public/worker/rpc'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/importar'
     | '/log'
     | '/login'
+    | '/lote'
     | '/midia'
     | '/api/public/worker/rpc'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   ImportarRoute: typeof ImportarRoute
   LogRoute: typeof LogRoute
   LoginRoute: typeof LoginRoute
+  LoteRoute: typeof LoteRoute
   MidiaRoute: typeof MidiaRoute
   ApiPublicWorkerRpcRoute: typeof ApiPublicWorkerRpcRoute
 }
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/lote': {
+      id: '/lote'
+      path: '/lote'
+      fullPath: '/lote'
+      preLoaderRoute: typeof LoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/midia': {
       id: '/midia'
       path: '/midia'
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImportarRoute: ImportarRoute,
   LogRoute: LogRoute,
   LoginRoute: LoginRoute,
+  LoteRoute: LoteRoute,
   MidiaRoute: MidiaRoute,
   ApiPublicWorkerRpcRoute: ApiPublicWorkerRpcRoute,
 }
